@@ -1,0 +1,23 @@
+@import url("/public/root.css");
+
+.menu-container {
+    display: grid;
+    justify-content: center;
+
+}
+
+.main-menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-items: center;
+}
+
+.main-menu li {
+    display: inline;
+    margin-right: 3vw;
+}
+
+.main-menu a {
+    text-decoration: none;
+    color: var(--secondary-color);
+}

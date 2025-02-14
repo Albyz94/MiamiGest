@@ -1,0 +1,30 @@
+<%- include("./common/header.ejs") %>
+    <%- include("./partials/menu") %>
+    <%- include("./partials/logout.ejs") %>
+    <h1>
+        ORDINI CANCELLATI O COMPLETATI
+    </h1>
+    <p>
+        Questo è un backup degli ordini, da qui potrai cancellare gli ordini definitivamente. <br>
+        Attenzione! Se cancelli un ordine, non potrai più vederlo.
+    </p>
+<form action="/delOrder" method="post">
+
+    <% deletedOrders.map(element => { %>
+        <div >
+            ID ORDINE: <%- element.id %> -
+            TAVOLO N.: <%- element.del_tavolo %> -
+            DATA E ORA: <%- JSON.parse(element.del_singleorder).date %>
+        </div>
+        <ul>
+            <% (JSON.parse(element.del_singleorder).ord).map(x=> { %>
+                <li><%- x.toUpperCase() %></li>
+            <% }) %>
+        </ul>
+        <button class="del-button" name="delOrderButton" value="delete<%- element.id %>">Elimina definitivamente</button>
+            <% }) %>
+</form>
+   
+   
+
+<%- include("./common/footer.ejs") %>

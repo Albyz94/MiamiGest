@@ -1,0 +1,13 @@
+<%- include("./common/header.ejs") %>
+    <%- include("./partials/menu") %>
+    <div>
+        <form action="/adduser" method="post">
+            <input type="email" name="email" placeholder="Email">
+            <input type="text" name="user" placeholder="Username">
+            <input type="password" name="password" placeholder="Password">
+            <button type="submit">Registrati</button>
+        </form>
+        <a href="/">Effettua il Login</a>
+    </div>
+
+<%- include("./common/footer.ejs") %>

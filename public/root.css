@@ -1,0 +1,12 @@
+:root {
+    --primary-color: rgb(37, 39, 40);
+    --secondary-color: rgb(199, 201, 76);
+    --link-color: rgb(84, 84, 215);
+    --tertiary-color: rgb(48, 135, 48);
+    --delete-color: rgb(145, 16, 16);
+
+    --sec-button-color: rgb(241, 243, 168);
+
+    --primary-font:"Merriweather, serif";
+    --secondary-font: "";
+}

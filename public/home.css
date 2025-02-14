@@ -1,0 +1,41 @@
+@import url("/public/root.css");
+
+body {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    font-family: var(--primary-font);
+    font-size: larger;
+    font-weight: 500;
+    
+}
+
+a {
+    color: var(--link-color);
+}
+
+input {
+    height: 30px;
+    width: 300px;
+    max-width: 400px;
+    font-size: 18px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+button {
+    /* height: 30px; */
+    padding: 1.5%;
+    width: auto;
+    border: none;
+    background-color: var(--secondary-color);
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 15px;
+    margin-top: 2%;
+    margin-bottom: 3%;
+}
+
+.del-button {
+    background-color: var(--delete-color);
+    color: var(--sec-button-color);
+}
