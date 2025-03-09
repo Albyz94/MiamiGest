@@ -1,4 +1,45 @@
 <%- include("./common/header.ejs") %>
     <%- include("./partials/menu") %>
     <div>Inventario</div>
+    <form action="">
+        <input type="text">
+    </form>
+    <section>
+
+        <table class="tab-inv">
+            <tr class="tab-row-head">
+                <td>Descrizione</td>
+                <td>U.m.</td>
+                <td>Prezzo</td>
+                <td>Q.tà</td>
+                <td>Importo</td>
+            </tr>
+            <form action="/inv-add-row" method="post">
+            <tr class="tab-row">
+                <td><input type="text" name="desc" value="" ></td>
+                <td> <input type="text" name="um" value="" ></td>
+                <td> <input type="number" name="price" value="" > </td>
+                <td><input type="number" name="qta" value="" ></td>
+                <td><input type="text" name="imp" value="" ></td>
+                <td><button>Aggiungi</button></td>
+            </tr>
+            </form>
+            <form action="/inv-row" method="post">
+                <tr class="tab-row">
+                    <td><input type="text" value="" readonly></td>
+                    <td> <input type="text" value="" readonly></td>
+                    <td> <input type="number" value="" readonly> </td>
+                    <td><input type="number" value="" readonly></td>
+                    <td><input type="text" value="" readonly></td>
+                    <td><button>Modifica</button></td>
+                    <td><button>Ok</button></td>
+                </tr>
+                </form>
+            <tr class="tab-row-total">
+                <td>TOTALE</td>
+                <td>1200,00</td>
+            </tr>
+        </table>
+
+    </section>
 <%- include("./common/footer.ejs") %>

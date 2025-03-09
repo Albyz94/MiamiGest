@@ -1,0 +1,9 @@
+<%- include("./common/header.ejs") %>
+<%- include("./partials/menu") %>
+    <section>
+        <% anni_list.map(anno => { %>
+            <a href="/inventario<%- anno.inv_anno %>"><%- anno.inv_anno %></a>
+        <% }) %>
+
+    </section>
+<%- include("./common/footer.ejs") %>

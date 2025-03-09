@@ -5,16 +5,16 @@ import bcrypt from "bcrypt";
 import cookieParser from "cookie-parser";
 import 'dotenv/config';
 
-const connectionString = "postgresql://admin:zwGiavhxUvhHM0ls3TLhwiBTZUo4eFSz@dpg-cuni1u23esus73cicekg-a.frankfurt-postgres.render.com/miamigest_db";
+
 const app = express();
 const { Client } = pg
  
 const db = new Client({
-  user: process.env.PGUSER,
-  password: process.env.PGPASS,
-  host: process.env.PGHOST,
-  port: process.env.PGPORT,
-  database: process.env.PGDB,
+  user: "postgres",//process.env.PGUSER,
+  password: "postgres", //process.env.PGPASS,
+  host: "localhost", //process.env.PGHOST,
+  port: 5432, //process.env.PGPORT,
+  database: "miamigestdb", //process.env.PGDB,
 })
 
 app.use(cookieParser());
@@ -357,3 +357,29 @@ app.post("/getInfo", async (req, res)=> {
     console.log(data.rows);
     res.redirect("/");
 })
+
+
+
+//GESTIONE DELL'INVENTARIO
+
+//Opening inventario menu page
+app.get("/inventariomenu", async (req, res)=> {
+    const anni = await db.query("SELECT DISTINCT inv_anno FROM inventario");
+    const anni_list = anni.rows
+    console.log(anni_list)
+
+    res.render("inventariomenu", {anni_list})
+})
+
+//Adding new row in inventario
+
+app.post("/inv-add-row", async (req, res)=> {
+    const desc = req.body.desc;
+    const um = req.body.um;
+    const price = req.body.price;
+    const qta = req.body.qta;
+    const imp = req.body.imp;
+
+    await db.query("INSERT INTO inventario (inv_anno, inv_desc, inv_um, inv_prezzo, inv_qta, inv_imp) ")
+
+});
