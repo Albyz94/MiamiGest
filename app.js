@@ -5,12 +5,13 @@ import bcrypt from "bcrypt";
 import cookieParser from "cookie-parser";
 import 'dotenv/config';
 
+const connectionString = "postgresql://admin:zwGiavhxUvhHM0ls3TLhwiBTZUo4eFSz@dpg-cuni1u23esus73cicekg-a.frankfurt-postgres.render.com/miamigest_db";
 const app = express();
 const { Client } = pg
  
 const db = new Client({
   user: process.env.PGUSER,
-  password: process.env.PGPASS,
+  password:process.env.PGPASS,
   host: process.env.PGHOST,
   port: process.env.PGPORT,
   database: process.env.PGDB,
@@ -21,14 +22,19 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.set("view engine", "ejs");
+async function startServer() {
+    try {
+        await db.connect();
+        console.log("Connesso al database");
+        app.listen(3000, ()=> {
+            console.log("server listening on 3000, https://localhost:3000");
+        })
+    } catch (err) {
+        console.error("Errore di connessione al database: ", err);
+    }
+}
 
-db.connect(()=> {
-    console.log("connected to pg")
-    app.listen(3000, ()=> {
-        console.log("server listening on 3000, https://localhost:3000");
-    });
-})
-
+startServer();
 
 app.get("/", (req, res) => {
     editMode = false;
@@ -51,7 +57,7 @@ app.get("/inventario", (req, res) => {
 });
 
 app.get("/registrati", (req, res)=> {
-    res.render("register")
+    res.render("register");
 });
 
 
@@ -62,17 +68,17 @@ app.post("/adduser" , async (req, res)=> {
     const email = req.body.email;
     let isRegistred = false;
      bcrypt.hash(password, 10, function (err, hash) {
-         try {
-            if (user && password && email) {
-                isRegistred = true;
-                db.query("INSERT INTO users (U_name, U_email,U_pass, U_type) VALUES ($1, $2, $3, 1)", [user, email, hash]);
+         
+         if (user && password && email) {
+             try {
+                 isRegistred = true;
+                 db.query("INSERT INTO users (U_name, U_email,U_pass, U_type) VALUES ($1, $2, $3, 1)", [user, email, hash]);
+                } catch (err) {
+                    console.log(err);
+                }
             } else {
                 isRegistred = false;
             }
-    
-          } catch (err) {
-              console.error(err);
-          }
         
      });
      
@@ -345,3 +351,9 @@ app.post("/delOrder", async (req, res)=> {
     }
     res.redirect("/ordinidel")
 });
+
+app.post("/getInfo", async (req, res)=> {
+    const data = await db.query("SELECT * FROM users");
+    console.log(data.rows);
+    res.redirect("/");
+})
