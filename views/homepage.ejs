@@ -1,0 +1,11 @@
+<%- include("./common/header.ejs") %>
+    <%- include("./partials/menu") %>
+    <%- include("./partials/logout.ejs") %>
+<div>Homepage di  <%= luser %>  </div>
+<form action="/passchange" method="POST">
+    <input type="password" name="oldpass" placeholder="Vecchia password">
+    <input type="password" name="newpass" placeholder="Nuova password">
+    <input type="password" name="confpass" placeholder="Conferma password">
+    <button>Conferma</button>
+</form>
+<%- include("./common/footer.ejs") %>

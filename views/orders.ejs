@@ -1,0 +1,92 @@
+<%- include("./common/header.ejs") %>
+    <%- include("./partials/menu") %>
+    <h1>ELENCO ORDINI DELLE SALE E DEL BAR</h1>
+    <p>Qui puoi aggiungere gli ordini dei tavoli delle sale e del bar. <br>
+    Inserisci un'elemento dell'ordine alla volta e premi  "Aggiungi". <br>
+    Alla fine scrivi il numero del tavolo e il numero dei coperti e premi "Crea comanda"
+    </p>
+    <form action="/newOrder" method="post" class="order-container">
+        <div>
+            <input class="order-field" type="text" placeholder="Inserisci elementi ordine" name="ordine">
+            <button class="addButton" name="listButton" value="addFood" onsubmit="preventDefault(); return false " >Aggiungi</button>
+            <!-- <input type="text" placeholder="Inserisci bevande" name="bere">
+            <button type="submit" name="listButton" value="add"></button> -->
+            
+        </div>
+    </form>
+    <form action="/orderList" method="post">
+        <ul class="adding-list">
+            <% orderBody.forEach((element, index) => {%>
+                <li class="order-element"> 
+                    <span>- <%- element %></span>
+                    <button class="del-button" type="submit" name="delButton" value="<%-index%>">X</button>
+                </li>
+                
+                <% }); %>
+            </ul>
+    </form>
+    <form action="/addNewOrder" method="post" class="order-container">
+        <div>
+            <input class="order-field-minor" type="text" placeholder="N. Tavolo" name="tavolo" required >
+            <input class="order-field-minor" type="number" placeholder="N. Coperti" name="coperti" required>
+        </div>
+        <div>
+            <button type="submit" name="button" value="add" >Crea Comanda</button>
+                <!-- <button type="submit" name="button" value="edit">Modifica Ordine</button>
+                <button type="submit" name="button" value="delete">Elimina Ordine</button> -->
+        </div>
+    </form>
+        <div class="order-list-container">
+            <% data.map((order, index)=> { %>
+                <div class="single-order">
+                    <div> Data e Ora: <%- order.date %></div>
+                    <div> Tavolo N.: <%- (order.tavolo).toUpperCase() %></div>
+                    <div> N. Coperti: <%- (order.cop).toUpperCase() %></div>
+                    <div> TypeOF <%- typeof(order.ord) %> </div>
+                    <ul >
+                    <div> Ordine: <% if (typeof(order.ord) === "object") { (order.ord).map(e=> { %>
+                            <li><%- e.toUpperCase() %></li>
+                    
+
+                        <% })} else { %>
+                        
+                                <li><%- order.ord %></li>
+                        
+                        <% }; %> </div> </ul>
+                        <form action="/orderActions" method="post">
+                            <button class="del-button" type="submit" name="orderButton" value="delete<%-order.tavolo %>" > Elimina </button>
+                            <button type="submit" name="orderButton" value="edit<%-order.tavolo %>"> Modifica </button>
+                        </form>
+                </div>
+            <%}); %>
+                    <!-- da recuperare l'id con l'index in modo da poter sapere quale elemento modificare o cancellare e recuperarne i dati -->
+                    <% if (editMode) { %>
+                        <div class="modal">
+                            <form action="/modify" method="post" class="modal-container">
+                                <div>
+                                    <label for="mtavolo">N. Tavolo</label>
+                                    <input type="text" name="mtavolo" value="<%- modOrderBody.tavolo %>">
+                                </div>
+                                <div>
+                                    <label for="mcoperti">N. Coperti</label>
+                                    <input type="number" name="mcoperti" value="<%- modOrderBody.cop  %>">
+                                </div>
+                                <!-- <div>
+                                    <label for="newElement">Aggiunte</label>
+                                    <input type="text" name="newElement" placeholder="aggiungi elemento all'ordine">
+                                </div> -->
+                                <ul>
+                                    <% if (typeof(modOrderBody.ord) === "object")  {(modOrderBody.ord).forEach(element => { %>
+                                        <li><input name="orderElement" type="text" value="<%- element.toUpperCase() %>"></li>
+                                        <% })} else { %>
+                                            <li><input name="orderElement" type="text" value="<%- modOrderBody.ord %>"></li>
+                                       <% } %>
+                                </ul>
+                                <button name="modifyButton" value="confirm" >Conferma</button>
+                                <button name="modifyButton" value="exit">Esci</button>
+                                <button name="modifyButton" value="add">Aggiungi</button>
+                            </form>
+                        </div>
+                    <% }  %>
+        </div>
+<%- include("./common/footer.ejs") %>

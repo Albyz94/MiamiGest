@@ -1,0 +1,74 @@
+@import url("/public/root.css");
+
+.order-container {
+    display: grid;
+    grid-template-rows: auto;
+    margin-left: 2%;
+}
+
+.addButton {
+    background-color: var(--tertiary-color);
+    color: var(--sec-button-color);
+}
+
+.modal {
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    position: absolute;
+    background-color: var(--primary-color);
+    padding: 5%;
+    z-index: 2;
+    border: solid 2px var(--link-color) ;
+    border-radius: 15px;
+}
+
+.order-list-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-left: 2%;
+}
+
+.order-element {
+    display: grid;
+    /* max-width: 300px; */
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 3%;
+    align-items: center;
+    font-size: 30px;
+}
+
+.order-element button {
+    width: 50px;
+    height: 40px;
+    font-size: 32px;
+}
+
+.single-order {
+    border: solid 2px rgb(125, 125, 125);
+    border-radius: 15px;
+    padding: 5%;
+    column-count: 2;
+    margin-left: 5%;
+    margin: 2%;
+}
+
+.adding-list {
+    column-count: 3;
+    column-gap: 2px;
+    max-height: 300px;
+}
+
+.order-field, .order-field-minor {
+    height: 50px;
+    padding-left: 20px;
+}
+
+.order-field-minor {
+    width: 100px !important;
+}
+
+.modal-container div {
+    display: grid;
+    grid-template-rows: auto;
+}
